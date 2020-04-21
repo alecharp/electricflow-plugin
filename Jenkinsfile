@@ -1,18 +1,17 @@
 pipeline {
   agent none
   stages {
-    stage('Test Plugin on Linux') {
-      agent {
-        docker {
-          label 'linux'
-          image 'ecdocker/eflow-ce'
+    stage('Run integration tests') {
+      node {
+        docker.image('ecdocker/eflow-ce-server').withRun('-p8443:8443') { c ->
+          sh 'ectool --server 127.0.0.1 --timeout 10000 login admin changeme'
         }
       }
       steps {
         buildPlugin(configurations: [ 'platform': "linux", 'jdk': "8", 'jenkins': null ])
       }
     }
-    stage('Test default configurations'){
+    stage('Test recommended configurations'){
       steps {
         buildPlugin(configurations: buildPlugin.recommendedConfigurations())
       }
