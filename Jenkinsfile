@@ -9,7 +9,7 @@ pipeline {
         }
       }
       steps {
-        buildPlugin(configurations: [ platform: "linux", jdk: "8", jenkins: null ])
+        buildPlugin(configurations: [ 'platform': "linux", 'jdk': "8", 'jenkins': null ])
       }
     }
     stage('Test default configurations'){
