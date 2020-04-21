@@ -3,13 +3,17 @@ pipeline {
   stages {
     stage('Test Plugin on Linux') {
       agent {
-        label 'linux'
         docker { image 'ecdocker/eflow-ce' }
+        label 'linux'
       }
       steps {
         buildPlugin(configurations: [ platform: "linux", jdk: "8", jenkins: null ])
       }
     }
  }
- buildPlugin(configurations: buildPlugin.recommendedConfigurations())
+ stages {
+   stage('Test default configurations'){
+    buildPlugin(configurations: buildPlugin.recommendedConfigurations())
+   }
+ }
 }
