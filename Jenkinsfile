@@ -12,12 +12,10 @@ pipeline {
         buildPlugin(configurations: [ platform: "linux", jdk: "8", jenkins: null ])
       }
     }
- }
- stages {
-   stage('Test default configurations'){
-     steps {
-       buildPlugin(configurations: buildPlugin.recommendedConfigurations())
-     }
-   }
+    stage('Test default configurations'){
+      steps {
+        buildPlugin(configurations: buildPlugin.recommendedConfigurations())
+      }
+    }
  }
 }
